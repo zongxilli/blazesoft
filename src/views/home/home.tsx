@@ -38,8 +38,10 @@ const Home = () => {
     );
   };
 
-  const renderBooks = () =>
-    books.map((book) => (
+  const renderBooks = () => {
+    const sortedBooks = books.sort((a, b) => a.name.localeCompare(b.name));
+
+    return sortedBooks.map((book) => (
       <Card
         key={book.id}
         title={book.name}
@@ -55,6 +57,7 @@ const Home = () => {
         {book.description}
       </Card>
     ));
+  };
 
   const renderContent = () => {
     return (
