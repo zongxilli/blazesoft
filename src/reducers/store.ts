@@ -5,6 +5,7 @@ import { Middleware } from 'redux';
 
 import { runSagas, sagaMiddleware } from '../sagas/sagas';
 
+import book from './book';
 import initialState from './initialStates';
 import * as storage from './localStorage';
 import theme from './theme';
@@ -15,6 +16,7 @@ const persistedState = storage.loadState();
 
 const store = configureStore({
   reducer: {
+    book,
     theme,
   },
   preloadedState: {

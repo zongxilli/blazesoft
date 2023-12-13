@@ -1,27 +1,46 @@
+import { useMemo } from 'react';
+
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { actions as themeActions } from '../../reducers/theme';
+import { actions as bookActions } from '../../reducers/book';
+import { Card } from '../../shared';
 
 import { Container, Content } from './home.styles';
 
 const Home = () => {
   const dispatch = useAppDispatch();
-  const { mode } = useAppSelector((state) => ({
-    mode: state.theme.mode,
-  }));
+  const { items } = useAppSelector((state) => state.book);
+
+  const books = useMemo(() => items, [items]);
 
   const renderContent = () => {
-    return <Content></Content>;
+    return (
+      <Content>
+        {books.map((book) => (
+          <Card
+            key={book.id}
+            title={book.name}
+            subTitle={book.price}
+            description={book.category}
+          >
+            {book.description}
+          </Card>
+        ))}
+      </Content>
+    );
   };
 
   return (
     <Container
-      onClick={() =>
+      onClick={() => {
         dispatch(
-          themeActions.changeThemeModeRequest(
-            mode === 'dark' ? 'light' : 'dark',
-          ),
-        )
-      }
+          bookActions.addBookRequest({
+            name: 'book1',
+            price: 10,
+            category: 'history',
+            description: 'Description of test 1',
+          }),
+        );
+      }}
     >
       {renderContent()}
     </Container>

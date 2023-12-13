@@ -1,5 +1,7 @@
 import { ThemeLanguage, ThemeMode } from '../theme';
+import { BookItem } from '../types/book';
 
+import { initialState as initialBookState } from './book';
 import { RootState, RootStore } from './store';
 import { initialState as initialThemeState } from './theme';
 import { ThemeState } from './theme/initialState';
@@ -8,6 +10,9 @@ type LocalStorageState = {
   theme: {
     mode: ThemeMode;
     language: ThemeLanguage;
+  };
+  book: {
+    items: BookItem[];
   };
 };
 
@@ -36,12 +41,16 @@ export const save = (storage: Storage, state: LocalStorageState) => {
 export const loadState: () => {
   theme: ThemeState;
 } = () => {
-  const storedState = load(window.localStorage) || { theme: {} };
+  const storedState = load(window.localStorage) || { theme: {}, book: {} };
 
   return {
     theme: {
       ...initialThemeState,
       ...storedState.theme,
+    },
+    book: {
+      ...initialBookState,
+      ...storedState.book,
     },
   };
 };
@@ -49,6 +58,7 @@ export const loadState: () => {
 export const saveState = (state: RootState) => {
   const localState = {
     theme: { mode: state.theme.mode, language: state.theme.language },
+    book: { items: state.book.items },
   };
   save(window.localStorage, localState);
 };
