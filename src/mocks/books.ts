@@ -22,4 +22,11 @@ export const MockBooks: BookItem[] = [
     category: 'math',
     description: 'Description of book 3',
   },
+  {
+    id: 'mock-book-4',
+    name: 'book4',
+    price: '1000',
+    category: 'stats',
+    description: 'Description of book 4',
+  },
 ];
