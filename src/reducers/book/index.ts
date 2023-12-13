@@ -24,7 +24,6 @@ const bookSlice = createSlice({
         payload: { book },
       }),
       reducer: (state, action: PayloadAction<{ book: BookItem }>) => {
-        // state.mode = action.payload.themeMode;
         state.items = [...state.items, action.payload.book];
         state.status.addBookPending = false;
         state.status.addBookSuccess = true;
@@ -37,6 +36,35 @@ const bookSlice = createSlice({
       reducer: (state) => {
         state.status.addBookPending = false;
         state.status.addBookSuccess = false;
+      },
+    },
+
+    deleteBookRequest: {
+      prepare: (id: string) => ({
+        payload: { id },
+      }),
+      reducer: (state) => {
+        state.status.deleteBookPending = true;
+        state.status.deleteBookSuccess = false;
+      },
+    },
+    deleteBookSuccess: {
+      prepare: (newBooks: BookItem[]) => ({
+        payload: { newBooks },
+      }),
+      reducer: (state, action: PayloadAction<{ newBooks: BookItem[] }>) => {
+        state.items = action.payload.newBooks;
+        state.status.deleteBookPending = false;
+        state.status.deleteBookSuccess = true;
+      },
+    },
+    deleteBookFailure: {
+      prepare: (error: Error) => ({
+        payload: { error },
+      }),
+      reducer: (state) => {
+        state.status.deleteBookPending = false;
+        state.status.deleteBookSuccess = false;
       },
     },
   },

@@ -21,6 +21,8 @@ const Home = () => {
             title={book.name}
             subTitle={book.price}
             description={book.category}
+            actionText='Delete book'
+            action={() => dispatch(bookActions.deleteBookRequest(book.id))}
           >
             {book.description}
           </Card>
@@ -31,16 +33,16 @@ const Home = () => {
 
   return (
     <Container
-      onClick={() => {
-        dispatch(
-          bookActions.addBookRequest({
-            name: 'book1',
-            price: 10,
-            category: 'history',
-            description: 'Description of test 1',
-          }),
-        );
-      }}
+    // onClick={() => {
+    //   dispatch(
+    //     bookActions.addBookRequest({
+    //       name: 'book1',
+    //       price: 10,
+    //       category: 'history',
+    //       description: 'Description of test 1',
+    //     }),
+    //   );
+    // }}
     >
       {renderContent()}
     </Container>

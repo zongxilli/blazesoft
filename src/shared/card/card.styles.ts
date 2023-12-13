@@ -25,3 +25,19 @@ export const Subtitle = styled.h4``;
 export const Description = styled.p``;
 
 export const Content = styled.p``;
+
+export const Button = styled.button`
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  box-sizing: border-box;
+  border-radius: 0.25rem;
+  background-color: ${(props) => props.theme.colors.redDefault};
+  color: ${(props) => props.theme.colors.textPrimary};
+
+  outline: none;
+  border: none;
+`;

@@ -17,6 +17,7 @@ export type ThemeColors = {
   grey4: string;
   grey5: string;
   grey6: string;
+  redDefault: string;
 };
 
 export const LightColors: ThemeColors = {
@@ -43,6 +44,8 @@ export const LightColors: ThemeColors = {
   grey4: '#AEAEB2',
   grey5: '#8E8E93',
   grey6: '#19191B',
+
+  redDefault: '#FE4141',
 } as const;
 
 export const DarkColors: ThemeColors = {
@@ -69,4 +72,6 @@ export const DarkColors: ThemeColors = {
   grey4: '#383838',
   grey5: '#6A6A6A',
   grey6: '#E5E5E5',
+
+  redDefault: '#D93838',
 } as const;
