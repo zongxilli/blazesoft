@@ -11,12 +11,10 @@ export default function* addAndUpdateBook(action) {
 
     // if the book exists
     if (bookInfo.id) {
-      console.log('update');
       yield put(actions.updateBookSuccess(bookInfo));
       return;
     }
 
-    console.log('create');
     const newBook = {
       ...bookInfo,
       id: uuid(),
