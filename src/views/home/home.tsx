@@ -1,13 +1,17 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { actions as themeActions } from '../../reducers/theme';
 
-import { Container } from './home.styles';
+import { Container, Content } from './home.styles';
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const { mode } = useAppSelector((state) => ({
     mode: state.theme.mode,
   }));
+
+  const renderContent = () => {
+    return <Content></Content>;
+  };
 
   return (
     <Container
@@ -19,7 +23,7 @@ const Home = () => {
         )
       }
     >
-      Welcome to Zongxi Kenny &apos;s frontend skeleton
+      {renderContent()}
     </Container>
   );
 };
