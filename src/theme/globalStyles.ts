@@ -4,8 +4,6 @@ const GlobalStyles = createGlobalStyle`
 
   * {
     font-family: 'Noto Sans Simplified Chinese', sans-serif;
-    transition: color 1.5s ease-in-out;
-    transition: background-color 1.5s ease-in-out;
 
     body,html {
       margin: 0;

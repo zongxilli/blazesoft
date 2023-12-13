@@ -19,7 +19,7 @@ const Home = () => {
           <Card
             key={book.id}
             title={book.name}
-            subTitle={book.price}
+            subTitle={`$${book.price}`}
             description={book.category}
             actionText='Delete book'
             action={() => dispatch(bookActions.deleteBookRequest(book.id))}

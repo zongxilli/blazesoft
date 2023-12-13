@@ -1,6 +1,10 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
-export const Container = styled.div`
+type ContainerProps = {
+  $clickable: boolean;
+};
+
+export const Container = styled.div<ContainerProps>`
   height: min-content;
   width: 100%;
 
@@ -16,6 +20,16 @@ export const Container = styled.div`
   background-color: ${(props) => props.theme.colors.elevatedBackgroundPrimary};
 
   ${(props) => props.theme.shadows.d1};
+
+  ${(props) =>
+    props.$clickable &&
+    css`
+      cursor: pointer;
+
+      &:hover {
+        background-color: ${props.theme.colors.elevatedBackgroundTertiary};
+      }
+    `}
 `;
 
 export const Title = styled.h2``;

@@ -15,6 +15,7 @@ type CardType = PropsWithChildren<{
   description: string;
   actionText?: string;
   action?: () => void;
+  onClick?: () => void;
 }>;
 
 const Card = ({
@@ -23,6 +24,7 @@ const Card = ({
   description,
   actionText = '',
   action = () => {},
+  onClick,
   children,
 }: CardType) => {
   const renderTitle = () => <Title>{title}</Title>;
@@ -35,7 +37,7 @@ const Card = ({
   };
 
   return (
-    <Container>
+    <Container onClick={onClick} $clickable={!!onClick}>
       {renderTitle()}
       {renderSubtitle()}
       {renderDescription()}
