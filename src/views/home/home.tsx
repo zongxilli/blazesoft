@@ -1,52 +1,72 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { actions as bookActions } from '../../reducers/book';
+import { actions as bookActions, BookInfo } from '../../reducers/book';
 import { Card } from '../../shared';
 
-import { Container, Content } from './home.styles';
+import AddBookModal from './addBookModal/addBookModal';
+import { Button, Container, Content, Navbar } from './home.styles';
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.book);
 
+  const [showModifyBookModal, setShowModifyBookModal] = useState(false);
+  const [selectedBookId, setSelectedBookId] = useState<string | null>(null);
+
   const books = useMemo(() => items, [items]);
+
+  const renderNavbar = () => (
+    <Navbar>
+      <Button onClick={() => setShowModifyBookModal(true)}>Add new book</Button>
+    </Navbar>
+  );
+
+  const renderAddBookModal = () => {
+    if (!showModifyBookModal) return null;
+    return (
+      <AddBookModal
+        onSave={(bookInfo: BookInfo) =>
+          dispatch(bookActions.addBookRequest(bookInfo))
+        }
+        closeModal={() => {
+          setSelectedBookId(null);
+          setShowModifyBookModal(false);
+        }}
+        selectedBookId={selectedBookId}
+      />
+    );
+  };
+
+  const renderBooks = () =>
+    books.map((book) => (
+      <Card
+        key={book.id}
+        title={book.name}
+        subTitle={`$${book.price}`}
+        description={book.category}
+        actionText='Delete book'
+        action={() => dispatch(bookActions.deleteBookRequest(book.id))}
+        onClick={() => {
+          setSelectedBookId(book.id);
+          setShowModifyBookModal(true);
+        }}
+      >
+        {book.description}
+      </Card>
+    ));
 
   const renderContent = () => {
     return (
       <Content>
-        {books.map((book) => (
-          <Card
-            key={book.id}
-            title={book.name}
-            subTitle={`$${book.price}`}
-            description={book.category}
-            actionText='Delete book'
-            action={() => dispatch(bookActions.deleteBookRequest(book.id))}
-          >
-            {book.description}
-          </Card>
-        ))}
+        {renderNavbar()}
+        {renderBooks()}
+        {renderAddBookModal()}
       </Content>
     );
   };
 
-  return (
-    <Container
-    // onClick={() => {
-    //   dispatch(
-    //     bookActions.addBookRequest({
-    //       name: 'book1',
-    //       price: 10,
-    //       category: 'history',
-    //       description: 'Description of test 1',
-    //     }),
-    //   );
-    // }}
-    >
-      {renderContent()}
-    </Container>
-  );
+  return <Container>{renderContent()}</Container>;
 };
 
 export default Home;

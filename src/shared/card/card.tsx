@@ -33,7 +33,17 @@ const Card = ({
   const renderChildren = () => <Content>{children}</Content>;
   const renderActionButton = () => {
     if (!actionText) return null;
-    return <Button onClick={action}>{actionText}</Button>;
+
+    return (
+      <Button
+        onClick={(e) => {
+          e.stopPropagation();
+          action();
+        }}
+      >
+        {actionText}
+      </Button>
+    );
   };
 
   return (

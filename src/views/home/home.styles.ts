@@ -28,3 +28,38 @@ export const Content = styled.div`
   box-sizing: border-box;
   padding: 10dvh 10%;
 `;
+
+export const Navbar = styled.div`
+  z-index: ${(props) => props.theme.zIndexes.navBar};
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 1vh 0;
+
+  width: 100vw;
+  height: min-content;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: ${(props) => props.theme.colors.systemBackgroundPrimary};
+  ${(props) => props.theme.shadows.d1};
+`;
+
+export const Button = styled.button`
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  box-sizing: border-box;
+  border-radius: 0.25rem;
+  background-color: ${(props) => props.theme.colors.systemBackgroundSecondary};
+  color: ${(props) => props.theme.colors.textPrimary};
+
+  outline: none;
+  border: 1px solid ${(props) => props.theme.colors.grey4};
+`;

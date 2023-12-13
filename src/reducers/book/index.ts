@@ -4,7 +4,7 @@ import { BookItem } from '../../types/book';
 
 import initialState from './initialState';
 
-type BookInfo = Omit<BookItem, 'id'>;
+export type BookInfo = Omit<BookItem, 'id'> & { id?: string };
 
 const bookSlice = createSlice({
   name: 'book',
@@ -36,6 +36,20 @@ const bookSlice = createSlice({
       reducer: (state) => {
         state.status.addBookPending = false;
         state.status.addBookSuccess = false;
+      },
+    },
+    updateBookSuccess: {
+      prepare: (book: BookItem) => ({
+        payload: { book },
+      }),
+      reducer: (state, action: PayloadAction<{ book: BookItem }>) => {
+        const filteredBooks = state.items.filter(
+          (item) => item.id !== action.payload.book.id,
+        );
+
+        state.items = [...filteredBooks, action.payload.book];
+        state.status.addBookPending = false;
+        state.status.addBookSuccess = true;
       },
     },
 
